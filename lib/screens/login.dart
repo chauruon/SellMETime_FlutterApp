@@ -77,13 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       icon: Icon(passwordVisible
                         ? Icons.visibility
                         : Icons.visibility_off,size: 24,),
-                      onPressed: () {showPass();},
+                      onPressed: () => showPass(),
                     ),
                   ),
                 ),
               ),
               // Countdown(durationInSeconds: 300,)
               Countdown(
+                // 5 phut => 5 * 60s hoac 1h => 1 giờ * 60phut * 60s
                 durationInSeconds: 300,
                 startAutomatically: _isRunning,
                 textStyle: const TextStyle(fontSize: 36),
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                  log("message");
+                    log("onPressed button start");
                     _isRunning = true;
                   });
                 },

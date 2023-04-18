@@ -22,27 +22,26 @@ class _CountdownState extends State<Countdown> {
   Timer? _timer;
   late Duration _remainingTime;
 
-  bool runTime = false;
-
   @override
   void initState() {
+    Future.delayed(Duration.zero,() async {
+      //your async 'await' codes goes here
+    });
+      if (widget.startAutomatically) {
+        log("222222222222222222222222");
+        _startTimer();
+      }
     super.initState();
     _resetTimer();
 
-    if (widget.startAutomatically) {
-    log("222222222222222222222222 $runTime");
-      _startTimer();
-    }
   }
-
-
   @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
   }
 
-  void _startTimer() {
+  void _startTimer() async {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _remainingTime -= const Duration(seconds: 1);
@@ -68,7 +67,6 @@ class _CountdownState extends State<Countdown> {
   Widget build(BuildContext context) {
     int minutes = _remainingTime.inMinutes;
     int seconds = _remainingTime.inSeconds.remainder(60);
-    runTime = widget.startAutomatically;
     log("1111111111111111111111111 ${widget.startAutomatically}");
 
     return Text(
