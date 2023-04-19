@@ -2,6 +2,8 @@ import 'package:component_login/components/countdown.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
+import '../components/timer.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -12,13 +14,22 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late bool passwordVisible=false;
   bool _isRunning = false;
-
-
+  
   void showPass () =>{
     setState(()=>{
       passwordVisible = !passwordVisible
     })
   };
+
+  void onFinishCountdown(bool isRunning) {
+    setState(() {
+      _isRunning = isRunning;
+    });
+  }
+
+  void myFunction() {
+    // Do something with the data
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,32 +46,124 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 100.0,),
               Image.asset("assets/images/Logo.png",height: 200.0,width: 200.0,),
               const SizedBox(height: 10.0,),
-
-              const Text("Welcome to PuPy",style: TextStyle(
-                color: Colors.black45,
-                fontWeight: FontWeight.w600,
-                fontSize: 30,
-              ),),
-              const SizedBox(height: 40.0,),
-
-              const Padding(
-                padding:  EdgeInsets.only(right: 30, left: 30),
-                child: TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "Nhập tùm lum thứ",
-                    border: OutlineInputBorder(borderSide: BorderSide(color:Color.fromARGB(58, 212, 212, 212))),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
-                    prefixIcon: Align(
-                      widthFactor: 1.0,
-                      heightFactor: 1.0,
-                      child: Icon(
-                        Icons.person,
-                      ),
-                    ),
-                  ),
+              const Text("Welcome to PuPy",
+                style: TextStyle(
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
                 ),
               ),
+              const SizedBox(height: 40.0,),
+            
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: "Nhập tùm lum thứ",
+                            border:  OutlineInputBorder(borderSide: BorderSide(color:Color.fromARGB(58, 212, 212, 212))),
+                            focusedBorder:  OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: Icon(
+                                Icons.person,
+                              ),
+                            ),
+                            contentPadding:  EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+                            // suffixIcon:  SizedBox(
+                            //   height: 10,
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(right: 5),
+                            //     child: TextButton(
+                            //       style: TextButton.styleFrom(
+                            //         backgroundColor: Colors.green,
+                            //       ),
+                            //       onPressed: () {
+                            //         // Do something when the button is pressed
+                            //       },
+                            //       child: const Text('Button'),
+                            //     ),
+                            //   ),
+                            // ),
+                  
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                        width: 30,
+                        child: Text("data",
+                          style: TextStyle(
+                            backgroundColor: Colors.amberAccent,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+              ),
+
+              // Padding(
+              //     padding: const EdgeInsets.only(left: 30,right: 30),
+              //     child: Row(
+              //       children: const [
+              //         Expanded(
+              //           child: TextField(
+              //             keyboardType: TextInputType.emailAddress,
+              //             decoration: InputDecoration(
+              //               hintText: "Nhập tùm lum thứ",
+              //               border:  OutlineInputBorder(borderSide: BorderSide(color:Color.fromARGB(58, 212, 212, 212))),
+              //               focusedBorder:  OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+              //               prefixIcon: Align(
+              //                 widthFactor: 1.0,
+              //                 heightFactor: 1.0,
+              //                 child: Icon(
+              //                   Icons.person,
+              //                 ),
+              //               ),
+              //               contentPadding:  EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+              //               // suffixIcon:  SizedBox(
+              //               //   height: 10,
+              //               //   child: Padding(
+              //               //     padding: const EdgeInsets.only(right: 5),
+              //               //     child: TextButton(
+              //               //       style: TextButton.styleFrom(
+              //               //         backgroundColor: Colors.green,
+              //               //       ),
+              //               //       onPressed: () {
+              //               //         // Do something when the button is pressed
+              //               //       },
+              //               //       child: const Text('Button'),
+              //               //     ),
+              //               //   ),
+              //               // ),
+                  
+              //             ),
+              //           ),
+              //         ),
+              //         SizedBox(
+              //           height: 15.0,
+              //           width: 30,
+              //           child: Text("data",
+              //             style: TextStyle(
+              //               backgroundColor: Colors.amberAccent,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+             
+
               const SizedBox(height: 15.0,),
               Padding(
                 padding: const EdgeInsets.only(right: 30, left: 30),
@@ -82,13 +185,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // Countdown(durationInSeconds: 300,)
-              Countdown(
-                // 5 phut => 5 * 60s hoac 1h => 1 giờ * 60phut * 60s
-                durationInSeconds: 300,
-                startAutomatically: _isRunning,
-                textStyle: const TextStyle(fontSize: 36),
+              const SizedBox(height: 15.0,),
+              
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 30, left: 30),
+              //   child: TextField(
+              //     obscureText: !passwordVisible,
+              //     keyboardType: TextInputType.visiblePassword,
+              //     decoration: InputDecoration(
+              //       hintText: "Nhập tùm lum thứ",
+              //       border: const OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+              //       focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color:Colors.grey)),
+              //       prefixIcon: const Icon(Icons.lock_rounded, size: 24,),
+
+              //       suffixIcon: IconButton(
+              //         icon: Icon(passwordVisible
+              //           ? Icons.visibility
+              //           : Icons.visibility_off,size: 24,),
+              //         onPressed: () => showPass(),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
+
+              const SizedBox(height: 15.0,),
+              const Text("TimerComponent",
+                style: TextStyle(
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
               ),
+              if (_isRunning == true)
+                Countdown(
+                  // 5 phut => 5 * 60s hoac 1h => 1 giờ * 60phut * 60s
+                  durationInSeconds: 10,
+                  startCount: _isRunning,
+                  textStyle: const TextStyle(fontSize: 36),
+                  onFinish: onFinishCountdown,
+                ), 
+              
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -99,6 +236,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text('Start'),
               ),
             ],
+
+
+            
+
+
+
+
+    
           ),
         ),
       ),

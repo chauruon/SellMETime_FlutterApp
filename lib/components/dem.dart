@@ -1,26 +1,22 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:developer';
+import 'package:flutter/material.dart';
 
-class Countdown extends StatefulWidget {
+
+class DemNguoc extends StatefulWidget {
   final int durationInSeconds;
   final TextStyle textStyle;
-  final bool startCount;
- final Function(bool) onFinish;
 
-  const Countdown({
+  const DemNguoc({
     Key? key,
     required this.durationInSeconds,
-    required this.startCount,
     required this.textStyle,
-    required this.onFinish,
   }) : super(key: key);
 
   @override
-  _CountdownState createState() => _CountdownState();
+  _DemNguocState createState() => _DemNguocState();
 }
 
-class _CountdownState extends State<Countdown> {
+class _DemNguocState extends State<DemNguoc> {
   late Timer _timer;
   int _remainingTime = 0;
   bool _isRunning = false;
@@ -28,27 +24,23 @@ class _CountdownState extends State<Countdown> {
   @override
   void initState() {
     super.initState();
-    log("asdfjhsagdfajdf ${widget.startCount}");
     _startTimerAfterBuild();
   }
 
   Future<void> _startTimerAfterBuild() async {
     await Future.delayed(Duration.zero);
-    _isRunning = widget.startCount;
+    _isRunning = true;
     _remainingTime = widget.durationInSeconds;
     _startTimer();
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+    _timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() {
         if (_remainingTime > 0) {
           _remainingTime--;
         } else {
           _timer.cancel();
-          _isRunning = false;
-          widget.onFinish(_isRunning);
-
         }
       });
     });
@@ -73,3 +65,6 @@ class _CountdownState extends State<Countdown> {
     );
   }
 }
+
+
+
