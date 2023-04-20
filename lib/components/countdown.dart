@@ -62,8 +62,14 @@ class _CountdownState extends State<Countdown> {
 
   @override
   Widget build(BuildContext context) {
+    // Duration remainingDuration = Duration(seconds: _remainingTime);
+    // int minutes = remainingDuration.inMinutes;
+    // int seconds = remainingDuration.inSeconds.remainder(60);
+
     int minutes = _remainingTime ~/ 60;
     int seconds = _remainingTime % 60;
+
+
     if (!_isRunning) {
       return Container();
     }
