@@ -2,7 +2,7 @@ import 'package:component_login/components/countdown.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
-import '../components/timer.dart';
+// import '../components/timer.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -161,14 +161,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: const Text('Start'),
               ),
             ],
-
-
-            
-
-
-
-
-    
           ),
         ),
       ),

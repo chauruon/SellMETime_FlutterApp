@@ -1,19 +1,19 @@
+import 'package:component_login/screens/form_demo.dart';
 import 'package:flutter/material.dart';
-// import 'dart:developer';
-// import '../components/countdown.dart';
 
+import 'demo_step1.dart';
 
-class LoginScreen2 extends StatefulWidget {
-  const LoginScreen2({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginScreen2> createState() => _LoginScreen2State();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreen2State extends State<LoginScreen2> {
+class _LoginScreenState extends State<LoginScreen> {
 
   late bool passwordVisible=false;
-  bool isRunning = false;
+  bool isRunnings = false;
   
   void showPass () =>{
     setState(()=>{
@@ -23,7 +23,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   void onFinishCountdown(bool isRunning) {
     setState(() {
-      isRunning = isRunning;
+      isRunnings = isRunning;
     });
   }
 
@@ -59,9 +59,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       const SizedBox(height: 100.0,),
                       Image.asset("assets/icon/logo.png",height: 105.0,width: 100.0,),
                     ],
-                  )),
-
-
+                  )
+                ),
                 Container(
                   width: double.infinity,
                   height: 500,
@@ -209,7 +208,12 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                   fontSize: 14,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const DemoStep1()),
+                                );
+                              },
                               child: const Text('New Account'),
                             ),
                             TextButton(
