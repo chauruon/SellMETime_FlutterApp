@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:convert';
 
 import '../components/app_bar.dart';
+import '../components/form/form1.dart';
 
 class DemoStep1 extends StatefulWidget {
   const DemoStep1({super.key});
@@ -16,39 +17,24 @@ class DemoStep1 extends StatefulWidget {
 class _DemoStep1State extends State<DemoStep1> {
   int _currentStep = 0;
 
-  List<Step> getStep() => [
-    Step(
-      title: const Text('Step 1 title'),
-      content: Container(
-          alignment: Alignment.centerLeft,
-          child: const Text('Content for Step 1')),
-    ),
-    Step(
-      title: const Text('Step 2 title'),
-      content: Container(
-          alignment: Alignment.centerLeft,
-          child: const Text('Content for Step 2')),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
 
     final List<StepItem> stepsView =[
       StepItem(
         title: const Text('Step 1'),
-        content: Container(
-          height: MediaQuery.of(context).size.height - 120 ,
-          color: Colors.blueAccent,
-          alignment: Alignment.center,
-          child: const Text('Content for Step 1')),
+        content: SizedBox(
+          height: MediaQuery.of(context).size.height - 100 ,
+          child: const Form1(),
+        ),
       ),
       StepItem(
         title: const Text('Step 2'),
         content: Container(
           height: MediaQuery.of(context).size.height - 120 ,
           alignment: Alignment.center,
-          child: const Text('Content for Step 2')),
+          child: const Text('Content for Step 2')
+        ),
       ),
     ];
     
@@ -71,9 +57,9 @@ class _DemoStep1State extends State<DemoStep1> {
         elevation: 0,
         onPressStep: onFinish,
       ),
-      body: Container(
+      body: SafeArea(
         // color: Colors.amber,
-        alignment: Alignment.center,
+        // alignment: Alignment.center,
         child: Step1(
           type: Step1Type.horizontal,
           currentStep: _currentStep,

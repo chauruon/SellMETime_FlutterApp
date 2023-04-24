@@ -14,8 +14,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.currentStep = -1,
     this.onPressStep,
-  }):assert(currentStep != null),
-    assert(0 <= currentStep);
+  }):assert(0 <= currentStep);
   
   
   final Function(int)? onPressStep;
@@ -28,7 +27,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final int currentStep;
 
   @override
-  Size get preferredSize => const Size(double.infinity,60.0);
+  Size get preferredSize => const Size(double.infinity,40.0);
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
