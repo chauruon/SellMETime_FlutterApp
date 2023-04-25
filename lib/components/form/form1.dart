@@ -1,6 +1,6 @@
 import 'package:component_login/components/type/typepost.dart';
 import 'package:flutter/material.dart';
-import 'package:currency_picker/currency_picker.dart';
+import  'package:fl_country_code_picker/fl_country_code_picker.dart';
 
 class Form1 extends StatefulWidget {
   const Form1({super.key});
@@ -27,6 +27,11 @@ class _Form1State extends State<Form1> {
     Color.fromRGBO(255, 178, 0, 1),
     Color.fromRGBO(218, 0, 11, 1),
   ];
+
+  String currencyName = "";
+  final countrypicker = const FlCountryCodePicker();
+  CountryCode? countryCode;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,23 +99,78 @@ class _Form1State extends State<Form1> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
+                            // crossAxisAlignment:CrossAxisAlignment.center ,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text("Cost"),
-                              ElevatedButton(
-                                onPressed: () {
-                                  showCurrencyPicker(
-                                    context: context,
-                                    showFlag: true,
-                                    showSearchField: true,
-                                    showCurrencyName: true,
-                                    showCurrencyCode: true,
-                                    onSelect: (Currency currency) {
-                                      print('Select currency: ${currency}');
-                                    },
-                                    // favorite: ['SEK'],
-                                  );
-                                },
-                                child: const Text('Show currency picker'),
+                              const SizedBox(width: 40,),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 180,
+                                    height: 55,
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      textInputAction: TextInputAction.done,
+                                      minLines: 1,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: const Color.fromRGBO(0, 38, 101, 0.04),
+                                        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        hintText: "Enter cost",
+                                      ),
+                                      textAlignVertical: TextAlignVertical.bottom,
+                                    ),
+                                  ),
+                                  
+                                  const SizedBox(width: 10,),
+                                  SizedBox(
+                                    // width: 50,
+                                    height: 50,
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        final code = await countrypicker.showPicker(context: context);
+                                        setState(() {
+                                          countryCode = code;
+                                        });
+                                      },
+                                      // 123,456,789,012,345
+                                      // 110845
+                                      // 143093
+                                      child: Container(
+                                        width: 90,
+                                        decoration: BoxDecoration(
+                                          color:const Color.fromRGBO(0, 38, 101, 0.08),
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        // alignment: Alignment.center,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              "${countryCode != null ? countryCode?.name : ""}",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              textAlign: TextAlign.center,
+                                              // style: TextStyle(
+                                              // ),
+                                            ),
+                                            SizedBox(
+                                              // width: 15,
+                                              child: Image.asset("assets/icon/arrowDown.png",width: 20,height: 20,),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
                               ),
                               
                             ],
