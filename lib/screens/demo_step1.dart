@@ -1,9 +1,9 @@
-import 'package:component_login/components/form/step1.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:convert';
 
 import '../components/app_bar.dart';
+import '../components/form/StepComponent.dart';
 import '../components/form/form1.dart';
 
 class DemoStep1 extends StatefulWidget {
@@ -17,6 +17,9 @@ class DemoStep1 extends StatefulWidget {
 class _DemoStep1State extends State<DemoStep1> {
   int _currentStep = 0;
 
+  double heightBtnNext = 40;
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -24,7 +27,7 @@ class _DemoStep1State extends State<DemoStep1> {
       StepItem(
         title: const Text('Step 1'),
         content: SizedBox(
-          height: MediaQuery.of(context).size.height - 100 ,
+          height: MediaQuery.of(context).size.height - heightBtnNext - 90,
           child: const Form1(),
         ),
       ),
@@ -57,51 +60,54 @@ class _DemoStep1State extends State<DemoStep1> {
         elevation: 0,
         onPressStep: onFinish,
       ),
-      body: SafeArea(
-        // color: Colors.amber,
-        // alignment: Alignment.center,
-        child: Step1(
-          type: Step1Type.horizontal,
-          currentStep: _currentStep,
-          controlsBuilder: (context, details) {
-            return Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(0, 38, 101, 1),
-                  fixedSize: Size(MediaQuery.of(context).size.width , 40),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+      body: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: SafeArea(
+          child: StepComponent(
+            type: StepType.horizontal,
+            currentStep: _currentStep,
+            controlsBuilder: (context, details) {
+              return Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(0, 38, 101, 1),
+                    fixedSize: Size(MediaQuery.of(context).size.width , heightBtnNext),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                ),
-                child: const Text('Next'),
-                onPressed: (){
-                  if (_currentStep <= 0) {
-                    setState(() {
-                      _currentStep += 1;
-                    });
+                  child: const Text('Next'),
+                  onPressed: (){
+                    if (_currentStep <= 0) {
+                      setState(() {
+                        _currentStep += 1;
+                      });
+                    }
                   }
-                }
-              )
-            );
-          },
-          onStepContinue: () {
-            if (_currentStep <= 0) {
-              setState(() {
-                _currentStep += 1;
-              });
-            }
-          },
-          onStepCancel: () {
-            if (_currentStep > 0) {
-              setState(() {
-                _currentStep -= 1;
-              });
-            }
-          },
-          steps: stepsView,
+                )
+              );
+            },
+            onStepContinue: () {
+              if (_currentStep <= 0) {
+                setState(() {
+                  _currentStep += 1;
+                });
+              }
+            },
+            onStepCancel: () {
+              if (_currentStep > 0) {
+                setState(() {
+                  _currentStep -= 1;
+                });
+              }
+            },
+            steps: stepsView,
+          ),
         ),
-      )
+      ),
     );
   }
 }

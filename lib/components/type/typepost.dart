@@ -46,7 +46,7 @@ class _ListButtonState extends State<TypePostComponent> {
         : [Colors.red, Colors.blue, Colors.green];
 
     return SizedBox(
-      height: 20,
+      height: 25,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.items.length,
@@ -65,7 +65,7 @@ class _ListButtonState extends State<TypePostComponent> {
             },
             child: Container(
               alignment: Alignment.center,
-              width: 60,
+              width: 75,
               decoration: BoxDecoration(
                 color: isSelected ? color : widget.colors[index],
                 borderRadius: BorderRadius.circular(25),
@@ -76,14 +76,13 @@ class _ListButtonState extends State<TypePostComponent> {
                       )
                     : null,
               ),
-              // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               margin: const EdgeInsets.only(right: 8),
               child: Text(
                 widget.items[index],
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                   color: textcolors[index],
-                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ),

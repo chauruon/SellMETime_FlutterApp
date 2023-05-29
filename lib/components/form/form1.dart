@@ -1,6 +1,9 @@
 import 'package:component_login/components/type/typepost.dart';
 import 'package:flutter/material.dart';
 import  'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:currency_picker/currency_picker.dart';
+
+
 
 class Form1 extends StatefulWidget {
   const Form1({super.key});
@@ -31,10 +34,15 @@ class _Form1State extends State<Form1> {
   String currencyName = "";
   final countrypicker = const FlCountryCodePicker();
   CountryCode? countryCode;
+  Currency? selectCurrency;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Container(
       alignment: Alignment.center,
       child: SafeArea(
         child: Column(
@@ -48,6 +56,10 @@ class _Form1State extends State<Form1> {
                   const Text(
                     "Required",
                     textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
                   ),
                   const SizedBox(height: 10,),
                   Container(
@@ -78,6 +90,10 @@ class _Form1State extends State<Form1> {
                             children: [
                               const Text(
                                 "Post type",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
                               ),
                               const SizedBox(width: 10,),
                               Expanded(
@@ -99,28 +115,39 @@ class _Form1State extends State<Form1> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            // crossAxisAlignment:CrossAxisAlignment.center ,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Text("Cost"),
+                              const Text(
+                                "Cost",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
                               const SizedBox(width: 40,),
                               Row(
                                 children: [
                                   SizedBox(
-                                    width: 180,
+                                    width: MediaQuery.of(context).size.width - 230,
                                     height: 55,
                                     child: TextFormField(
                                       keyboardType: TextInputType.number,
                                       textInputAction: TextInputAction.done,
                                       minLines: 1,
+                                      
                                       decoration: InputDecoration(
+                                        hintStyle: const TextStyle(
+                                          color: Color.fromRGBO(1, 30, 50, 1),
+                                          fontSize: 14,
+                                        ),
                                         filled: true,
                                         fillColor: const Color.fromRGBO(0, 38, 101, 0.04),
                                         contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                                         border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.circular(10)
+                                          borderRadius: BorderRadius.circular(10),
                                         ),
+                                        focusColor: const Color.fromRGBO(1, 30, 50, 1),
                                         hintText: "Enter cost",
                                       ),
                                       textAlignVertical: TextAlignVertical.bottom,
@@ -131,51 +158,216 @@ class _Form1State extends State<Form1> {
                                   SizedBox(
                                     // width: 50,
                                     height: 50,
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        final code = await countrypicker.showPicker(context: context);
-                                        setState(() {
-                                          countryCode = code;
-                                        });
-                                      },
-                                      // 123,456,789,012,345
-                                      // 110845
-                                      // 143093
-                                      child: Container(
-                                        width: 90,
-                                        decoration: BoxDecoration(
-                                          color:const Color.fromRGBO(0, 38, 101, 0.08),
-                                          borderRadius: BorderRadius.circular(10)
-                                        ),
-                                        // alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              "${countryCode != null ? countryCode?.name : ""}",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              textAlign: TextAlign.center,
-                                              // style: TextStyle(
-                                              // ),
-                                            ),
-                                            SizedBox(
-                                              // width: 15,
-                                              child: Image.asset("assets/icon/arrowDown.png",width: 20,height: 20,),
-                                            )
-                                          ],
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: const Color.fromRGBO(0, 38, 101, 0.04),
+                                        fixedSize: const Size(90 , 40),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10.0),
                                         ),
                                       ),
-                                    )
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                "${selectCurrency != null ? selectCurrency?.code : 'Currency'}",
+                                                // overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                softWrap: false,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  // backgroundColor:  Color.fromRGBO(195, 206, 95, 1),
+                                                  // wordSpacing: 30.0,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:  Color.fromRGBO(1, 30, 50, 1),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            // width: 15,
+                                            child: Image.asset("assets/icon/arrowDown.png",width: 15,height: 15,),
+                                          )
+                                        ],
+                                      ),
+                                      onPressed: (){
+                                        showCurrencyPicker(
+                                          context: context,
+                                          showFlag: true,
+                                          showSearchField: true,
+                                          showCurrencyName: true,
+                                          showCurrencyCode: true,
+                                          onSelect: (Currency currency) {
+                                            // print('Select currency: $currency');
+                                              // print(currency);
+                                              setState(() {
+                                                selectCurrency = currency;
+                                              });
+
+                                          },
+                                          // favorite: ['SEK'],
+                                        );
+                                      }
+                                    ),                                  
                                   ),
                                 ],
                               ),
                               
                             ],
                           ),
-                        )
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Country",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(width: 17,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 130,
+                                height: 50,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final code = await countrypicker.showPicker(context: context);
+                                    print(code);
+                                    setState(() {
+                                      countryCode = code;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      color:const Color.fromRGBO(0, 38, 101, 0.04),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              "${countryCode != null ? countryCode?.name : 'Select a country'}",
+                                              // overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                // backgroundColor:  Color.fromRGBO(195, 206, 95, 1),
+                                                // wordSpacing: 30.0,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color:  Color.fromRGBO(1, 30, 50, 1),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          // width: 15,
+                                          child: Image.asset("assets/icon/arrowDown.png",width: 20,height: 20,),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ),
+                            ],                            
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Country",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(width: 17,),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width - 130,
+                                height: 50,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final code = await countrypicker.showPicker(context: context);
+                                    print(code);
+                                    setState(() {
+                                      countryCode = code;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      color:const Color.fromRGBO(0, 38, 101, 0.04),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              "${countryCode != null ? countryCode?.name : 'Select a country'}",
+                                              // overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(
+                                                // backgroundColor:  Color.fromRGBO(195, 206, 95, 1),
+                                                // wordSpacing: 30.0,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400,
+                                                color:  Color.fromRGBO(1, 30, 50, 1),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        DecoratedBox(
+                                          decoration: const BoxDecoration(
+                                            
+                                            gradient: LinearGradient(
+                                              colors: [Colors.red, Colors.blue]
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)
+                                            ),
+                                          ),
+                                          child: TextButton(
+                                            onPressed: () {},
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.transparent,
+                                              fixedSize: const Size(50, 20)
+                                              // primary: Colors.transparent,
+                                              // foregroundColor: Colors.transparent,
+                                            ),
+                                            child: const Text('Update'),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ),
+                            ],                            
+                          ),
+                        ),
                       ],
                     ),
                   )
@@ -185,6 +377,7 @@ class _Form1State extends State<Form1> {
           ],
         ),
       ),
+    ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-enum Step1Type {
+enum StepType {
   vertical,
   /// A horizontal layout of the steps with their content below the titles.
   horizontal,
@@ -103,12 +103,12 @@ class StepItem {
 }
 
 
-class Step1 extends StatefulWidget {
-  const Step1({
+class StepComponent extends StatefulWidget {
+  const StepComponent({
     super.key,
     required this.steps,
     this.physics,
-    this.type = Step1Type.vertical,
+    this.type = StepType.vertical,
     this.currentStep = 0,
     this.onStepTapped,
     this.onStepContinue,
@@ -123,7 +123,7 @@ class Step1 extends StatefulWidget {
 
   final List<StepItem> steps;
   final ScrollPhysics? physics;
-  final Step1Type type;
+  final StepType type;
   final int currentStep;
   final ValueChanged<int>? onStepTapped;
   final VoidCallback? onStepContinue;
@@ -132,10 +132,10 @@ class Step1 extends StatefulWidget {
   final ControlsWidgetBuilder? controlsBuilder;
 
   @override
-  State<Step1> createState() => _Step1State();
+  State<StepComponent> createState() => _Step1State();
 }
 
-class _Step1State extends State<Step1> with TickerProviderStateMixin {
+class _Step1State extends State<StepComponent> with TickerProviderStateMixin {
   late List<GlobalKey> _keys;
   final Map<int, StepState> _oldStates = <int, StepState>{};
 
@@ -153,7 +153,7 @@ class _Step1State extends State<Step1> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(Step1 oldWidget) {
+  void didUpdateWidget(StepComponent oldWidget) {
     super.didUpdateWidget(oldWidget);
     assert(widget.steps.length == oldWidget.steps.length);
 
@@ -528,9 +528,9 @@ class _Step1State extends State<Step1> with TickerProviderStateMixin {
     }());
     assert(widget.type != null);
     switch (widget.type) {
-      case Step1Type.vertical:
+      case StepType.vertical:
        return const Text("Hiện tại chưa có vertical");
-      case Step1Type.horizontal:
+      case StepType.horizontal:
         return _buildHorizontal();
     }
   }
