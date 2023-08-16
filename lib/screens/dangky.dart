@@ -16,9 +16,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isRunning = false;
   
   void showPass () =>{
-    setState(()=>{
-      passwordVisible = !passwordVisible
-    })
+    setState(()=>passwordVisible = !passwordVisible
+    )
   };
 
   void onFinishCountdown(bool isRunning) {

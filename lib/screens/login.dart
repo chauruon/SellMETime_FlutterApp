@@ -16,9 +16,8 @@ class _LoginScreen1State extends State<LoginScreen1> {
   bool _isRunning = false;
   
   void showPass () =>{
-    setState(()=>{
-      passwordVisible = !passwordVisible
-    })
+    setState(()=>passwordVisible = !passwordVisible
+    )
   };
 
   void onFinishCountdown(bool isRunning) {
