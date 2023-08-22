@@ -1,4 +1,4 @@
-import 'package:component_login/components/countdown.dart';
+import 'package:sellmetime/components/countdown.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
@@ -59,8 +59,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Expanded(
                       child: TextField(
                         keyboardType: TextInputType.emailAddress,

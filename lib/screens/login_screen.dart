@@ -1,11 +1,9 @@
 import 'dart:math';
-
-import 'package:component_login/screens/form_demo.dart';
-import 'package:component_login/utils/my_encription_decryption.dart';
 import 'package:flutter/material.dart';
-
+import 'package:logger/logger.dart';
 import '../controller/login_controller.dart';
 import 'demo_step1.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,13 +14,22 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final LoginController _loginController = LoginController();
-
-
+  Logger logger = Logger();
   late bool passwordVisible=false;
   String emailValue = '';
   String passwordValue = "";
   bool isRunnings = false;
+
+
+  // final InfoApps = Get.put(InfoApp());
+  @override
+  void initState() {
+    super.initState();
+  }
+
+   
   
+
   void showPass () =>{
     setState(()=>passwordVisible = !passwordVisible
     )
@@ -46,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   topLeft: Radius.circular(60),
                 ),
               ),
-    
               child: Column(
                 children: [
                   const SizedBox(height: 60,),
@@ -236,9 +241,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  
-    
-    
                   const SizedBox(height: 20.0,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30,),
@@ -277,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ]
-        )
+        ),
       ),
     );
   }

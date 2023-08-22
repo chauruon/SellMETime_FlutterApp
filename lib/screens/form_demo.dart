@@ -1,8 +1,8 @@
-import 'package:component_login/components/form/form1.dart';
-import 'package:component_login/components/form/form2.dart';
 import 'package:flutter/material.dart';
+import 'package:sellmetime/components/form/form2.dart';
 
 import '../components/app_bar.dart';
+import '../components/form/form1.dart';
 
 
 class FormScreen extends StatefulWidget {

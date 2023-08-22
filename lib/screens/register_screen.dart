@@ -1,4 +1,4 @@
-import 'package:component_login/components/countdown.dart';
+import 'package:sellmetime/components/countdown.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 

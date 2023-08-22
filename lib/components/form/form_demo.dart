@@ -1,4 +1,4 @@
-import 'package:component_login/components/type/typepost.dart';
+import 'package:sellmetime/components/type/typepost.dart';
 import 'package:flutter/material.dart';
 import  'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:currency_picker/currency_picker.dart';
