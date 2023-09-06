@@ -13,9 +13,12 @@ class _CustomShapedBottomNavigationState extends State<CustomShapedBottomNavigat
     
     final Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
+    return Container(
+      height: 80,
+      color: Colors.white,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomCenter,
         children: [
           Positioned(
             bottom: 0,
@@ -86,7 +89,6 @@ class BNBCustomPainter extends CustomPainter {
     path.quadraticBezierTo(size.width*0.40, 0, size.width*0.40, 20);
     // điểm giữa
     path.arcToPoint(Offset(size.width*0.60, 20),radius: const Radius.circular(10.0),clockwise: false);
-
     // điểm kết thúc
     path.quadraticBezierTo(size.width*0.60, 0, size.width*0.65, 0);
     path.quadraticBezierTo(size.width*0.80, 0, size.width, 20);

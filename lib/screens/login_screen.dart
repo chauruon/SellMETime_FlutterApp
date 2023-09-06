@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+// import 'package:sellmetime/components/bottom_navigation/custom_shaped_bottom_navigation.dart';
 import '../controller/login_controller.dart';
 import 'demo_step1.dart';
 
@@ -53,30 +54,30 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Future<void> login(String email,String password) async {
+    // Map<String, String> body = {
+    //   "email":email,
+    //   "password":password
+    // };
+    // logger.d("1111111   $email");
+    // logger.d("2222222   ${!email.isNotEmpty}");
+    // logger.d("3333333   ${email.isEmpty}");
+    if (!email.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar("Email is empty!"));
+    }else if(!password.isNotEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(snackBar("Password is empty!"));
+    }
+    if (email.isNotEmpty && password.isNotEmpty) {
+      final ajsdhf = _loginController.postLoginApi(email,password);
+      logger.d("message $ajsdhf");
+      // logger.d("message");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var bottom = MediaQuery.of(context).viewInsets.bottom;
     bottom = max(min(bottom, 90), 0);
-
-    void login(String email,String password) async {
-      Map<String, String> body = {
-        "email":email,
-        "password":password
-      };
-      logger.d("1111111   $email");
-      logger.d("2222222   ${!email.isNotEmpty}");
-      logger.d("3333333   ${email.isEmpty}");
-      if (!email.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(snackBar("Email is empty!"));
-      }else if(!password.isNotEmpty){
-        ScaffoldMessenger.of(context).showSnackBar(snackBar("Password is empty!"));
-      }
-      if (email.isNotEmpty && password.isNotEmpty) {
-        final ajsdhf = _loginController.postLoginApi(email,password);
-      }
-
-    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -281,6 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ]
         ),
       ),
+      // bottomNavigationBar: const CustomShapedBottomNavigation(),
     );
   }
 }

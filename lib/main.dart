@@ -1,14 +1,15 @@
 
 import 'package:get/get.dart';
+// import 'package:sellmetime/screens/demo_bottom_nav.dart';
 import 'package:sellmetime/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:sellmetime/screens/my_cart.dart';
+// import 'package:sellmetime/screens/my_cart.dart';
 
-import 'components/bottom_navigation/custom_shaped_bottom_navigation.dart';
-import 'controller/info_app.dart';
-import 'screens/splash.dart';
+// import 'components/bottom_navigation/custom_shaped_bottom_navigation.dart';
+// import 'controller/info_app.dart';
+// import 'screens/splash.dart';
 
   // final InfoApps = Get.put(InfoApp());
 void main() async {
@@ -43,10 +44,11 @@ class MyApp extends StatelessWidget {
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        // child: const LoginScreen(),
+        child: const LoginScreen(),
         // child: const MyCart(),
         // child: const SplashScreen(),
-        child: const CustomShapedBottomNavigation(),
+        // child: const CustomShapedBottomNavigation(),
+        // child: const DemoBottomNav(),
       ),
     );
   }
